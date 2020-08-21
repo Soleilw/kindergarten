@@ -424,7 +424,7 @@ App({
     https1: 'https://huan.fengniaotuangou.cn', //总控线上接口地址
     // https1: 'http://192.168.1.105:8085',//总控本地接口地址
     mapKey: '33UBZ-ICQKP-W6FDW-V54Q6-OY542-IZFJ4', //腾讯地图位置服务key
-    host: 'https://er.fengniaotuangou.cn/docs',
+    host: 'https://er.fengniaotuangou.cn/api',
     // host: 'http://192.168.0.104/api',
 
     apihost: 'https://api.fengniaotuangou.cn/api',

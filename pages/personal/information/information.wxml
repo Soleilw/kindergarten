@@ -112,7 +112,7 @@
     </view> -->
   </block>
   
-  <block wx:if="{{isworkers&&showFace}}">
+  <block>
     <!-- 人脸 -->
     <view class="tableviewcell" style="border:none;justify-content: flex-start; ">
       <image class="left-icon" src="/icon/recognition.png"></image>
