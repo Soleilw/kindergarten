@@ -1,0 +1,7 @@
+<view class="list">
+  <view bindtap="toDetail" data-id="{{visitors[index].id}}" class="tableviewcell" wx:for="{{visitors}}" wx:key="{{index}}">
+    <image class="left-icon" src="/icon/visitor.png" />
+    <text>{{visitors[index].name}}</text>
+    <image class="right-icon" src="/icon/right.png" />
+  </view>
+</view>

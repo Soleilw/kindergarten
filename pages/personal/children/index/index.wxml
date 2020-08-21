@@ -1,0 +1,55 @@
+<view class="children-list" wx:for="{{childrenList}}" wx:key="{{index}}">
+  <view class="info">
+    <image class="portrait" data-value="{{item.student.id}}" bindtap='toChildren_Details' mode='aspectFill' src="{{item.student.cover?item.cover:'/icon/qb.png'}}"></image>
+    <view class="content" data-value="{{item.student.id}}" bindtap='toChildren_Details'>
+      <view>
+        <text>{{item.student.name}}</text>
+        <image mode='aspectFill' src="{{item.student.sex == 1 ? '/icon/boy.png' : '/icon/girl.png'}}"></image>
+        <text>{{item.student.age}}岁</text>
+      </view>
+      <text>学号：{{item.student.number}}</text>
+      <text wx:if="{{item.student.class_id}}">班级：{{item.student.grade}}{{item.student.class}}</text>
+      <text wx:else>班级：暂无录入信息</text>
+    </view>
+    <view wx:if="{{item.student.state == 3&&item.master==1}}" class="switch2" data-index="{{index}}" data-value="{{item.id}}" bindtap='change_state'>
+      <text>家庭成员</text>
+      <image mode='aspectFill' src="{{item.family_state == true ? '/icon/up.png' : '/icon/down.png'}}"></image>
+    </view>
+    <view wx:if="{{item.student.state == 3&&item.student.only_in==1}}" class="switch" data-value="{{item.student.id}}" bindtap="letout">
+      <text>临时出校</text>
+    </view>
+    <view wx:if="{{item.student.state == 2}}" class="switch">
+      <text>审核中</text>
+    </view>
+    <view wx:if="{{item.student.state == 4}}" class="switch">
+      <text>审核不通过</text>
+    </view>
+  </view>
+  <view wx:if="{{item.family_state}}" class="family ripple fadeIn" animation="{{item.animationData}}">
+
+
+
+ <view class="family-list" bindtap="addFamily" data-value="{{item.id}}" wx:if="{{item.master==1}}"><!-- 不通过的不显示 -->
+      <button style="width:100rpx;height:100rpx;border-radius: 50%;border:1px solid;color:#fff;background-color:rgba(0,0,0,0.5)" open-type="share" data-value="{{item.invite_id}}"  >+</button>
+      <text class='familyName'>邀请</text>
+    </view>
+
+
+
+    <view wx:for="{{item.family}}" wx:for-item="items" wx:key="{{index}}" class="family-list" data-value="{{items}}" data-family ="{{item.family}}" data-stu_number="{{item.stu_number}}" bindtap='toFamily_Details' ><!-- 不通过的不显示 -->
+      <view>
+        <image mode='aspectFill' src="{{items.user.avatarUrl}}"></image>
+        <!-- <text wx:if="{{items.parent_status != 1}}">{{items.parent_status == 0 ? '审核中' : items.parent_status == 2 ? '不通过' : ''}}</text> -->
+      </view>
+      <text class='familyName'>{{items.user.nickname}}</text>
+    </view>
+    <!-- <text wx:if="{{item.family.length == 0}}" class="notData">暂无家庭成员~</text> -->
+  </view>
+</view>
+<view class="add" bindtap='toSearch'>
+  <!-- <view>+</view> -->
+  <image src="/icon/add.png"></image>
+  <text>添加孩子</text>
+</view>
+<!-- <view style="background-color:red;width:750rpx;height:100rpx;"></view> -->
+

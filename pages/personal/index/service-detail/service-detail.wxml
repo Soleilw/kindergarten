@@ -1,0 +1,14 @@
+<!--pages/personal/index/service-detail/service-detail.wxml-->
+<block wx:for="{{detailList}}">
+	<view class="detail">
+		<view class="expire">
+		</view>
+		<view class="item">
+			<view class="name">服务名: <text style="color: green">{{item.name}}</text></view>
+			<view class="time">
+				<view style="width: 180rpx">到期时间:</view>
+				<text style="color: green">{{item.expireTime}}</text>
+			</view>
+		</view>
+	</view>
+</block>

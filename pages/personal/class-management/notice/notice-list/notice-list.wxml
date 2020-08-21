@@ -1,0 +1,13 @@
+<!-- 学生的所有公告列表 -->
+<view class="list" wx:for="{{notice_List}}" wx:key="index">
+	<view class="tableviewcell">
+		<image class="left-icon" src="/icon/news3.png" bindtap="toDetail" data-title="{{item.notice_title}}" data-content="{{item.notice_content}}" data-createtime="{{item.created_at}}" />
+		<rich-text nodes="{{ item.notice_title}}" space="nbsp" bindtap="toDetail" data-title="{{item.notice_title}}" data-content="{{item.notice_content}}" data-createtime="{{item.created_at}}"></rich-text>
+		<button wx:if="{{btn_del}}" type="warn" data-id="{{item.id}}" bindtap="del">删除</button>
+		<image class="right-icon" src="/icon/right.png" bindtap="toDetail" data-title="{{item.notice_title}}" data-content="{{item.notice_content}}" data-createtime="{{item.created_at}}" />
+	</view>
+</view>
+<view wx:if="{{notice_List.length == 0}}" class="view-empty">
+	<image src="/icon/not1.png"></image>
+	<text class="hint">暂无内容~</text>
+</view>

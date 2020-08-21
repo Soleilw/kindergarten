@@ -1,0 +1,76 @@
+<block wx:if="{{childrenList.length > 0}}">
+	<view class="nav">
+		<picker bindchange="childrenChange" value="{{childrenIndex}}" range="{{childrenName}}">
+			<view class="navbtu">
+				<text>{{childrenName[childrenIndex]}}</text>
+				<image src="/icon/down.png"></image>
+			</view>
+		</picker>
+	</view>
+	<view class="details">
+		<block wx:if="{{achievementList.length > 0}}">
+			<!-- 成绩表格 -->
+			<view class="table">
+				<view class="tr bg-w">
+					<text class="th" style="width:300rpx;">考试名称</text>
+					<text class="th" style="width:300rpx;">考试时间</text>
+					<text class="th" style="width:150rpx;">班级排名</text>
+					<text class="th" style="width:150rpx;">年级排名</text>
+					<text class="th" style="width:150rpx;">班级进退步</text>
+					<text class="th" style="width:150rpx;">年级进退步</text>
+					<text class="th" style="width:150rpx;">各科成绩</text>
+				</view>
+				<view class="bol">
+					<block wx:for="{{achievementList}}">
+						<view class="tr bg-g">
+							<text class="td" style="width:300rpx;" wx:if="{{item.title}}">{{item.title}}</text>
+							<text class="td" style="width:300rpx;" wx:if="{{item.time}}">{{item.time}}</text>
+							<text class="td" style="width:150rpx;" wx:if="{{item.class_ranking}}">{{item.class_ranking}}</text>
+							<text class="td" style="width:150rpx;" wx:if="{{item.grade_ranking}}">{{item.grade_ranking}}</text>
+							<text class="td" style="width:150rpx;" wx:if="{{item.class_advance}}">{{item.class_advance}}</text>
+							<text class="td" style="width:150rpx;" wx:if="{{item.grade_advance}}">{{item.grade_advance}}</text>
+							<block wx:if="{{item.scores.length > 0}}">
+								<button class="td" bindtap="showScores" data-scores="{{item.scores}}" data-title="{{item.title}}" data-score="{{item.score}}">各科成绩</button>
+							</block>
+							<text wx:else>暂无成绩</text>
+						</view>
+
+					</block>
+				</view>
+			</view>
+		</block>
+		<view wx:else class="view-empty">
+			<image src="/icon/not1.png"></image>
+			<text class="hint">暂无成绩信息~</text>
+		</view>
+		<!-- <view wx:else class="notData">暂无成绩信息~</view> -->
+	</view>
+</block>
+<view wx:else class="view-empty">
+	<image src="/icon/not1.png"></image>
+	<text class="hint">暂无内容~</text>
+</view>
+
+<!-- 显示各科成绩 -->
+<block wx:if="{{showScore}}">
+	<view class="position">
+		<view class="subjects">
+			<!-- 总分 -->
+			<scroll-view scroll-y="true" style="height: 400rpx;">
+				<view class="title">当前考试：
+					<text>{{title}}</text>
+				</view>
+				<view style="color: green">总分：{{totalScore}}分</view>
+				<block wx:for="{{scoresList}}">
+					<view class="item">
+						<text>{{item.subject}}</text>
+						<text>{{item.score}}</text>
+					</view>
+				</block>
+			</scroll-view>
+			<view class="close">
+				<button size="mini" bindtap="close">关闭</button>
+			</view>
+		</view>
+	</view>
+</block>

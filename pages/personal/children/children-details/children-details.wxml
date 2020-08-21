@@ -1,0 +1,119 @@
+<view class="container" wx:if="{{info.cover}}">
+  <!-- <view class="userinfo">
+    <image mode="aspectFill" bindtap="bindViewTap" class="userinfo-avatar" src="{{info.stu_head}}"></image>
+    <text></text>
+  </view> -->
+
+  <view class="userinfo" >
+    <image mode="aspectFill" class="userinfo-avatar" src="{{info.cover}}" bindtap='upload'></image>
+    <!-- <text>{{info.stu_name}}</text> -->
+  </view>
+  <!-- <view class="userinfo" wx:else>
+    <image mode="aspectFill" class="userinfo-avatar" src="/icon/qb.png" bindtap='upload'></image>
+    <text bindtap='upload'> 点击上传生活照 </text>
+  </view> -->
+</view>
+<!-- <view class="container" wx:if="{{showFace&&!info.cover}}">
+
+  <view class="userinfo" >
+    <image mode="aspectFill" class="userinfo-avatar" src="/icon/qb.png" bindtap='upload'></image>
+    <text bindtap='upload'> 点击上传头像 </text>
+  </view>
+</view> -->
+
+
+<view class="list">
+  <image src="/icon/NO.png"></image>
+  <view>
+    <input bindinput='numInput' type="number" maxlength='20' placeholder='请输入学号' value='{{info.number}}'></input>
+    <text bindtap='toSearch'>检索</text>
+  </view>
+</view>
+<view class="list">
+  <image src="/icon/name.png"></image>
+  <view>{{info.name}}</view>
+</view>
+<view class="list">
+  <image src="/icon/sex.png"></image>
+  <view>{{info.sex == 1 ? '男' : '女'}}</view>
+</view>
+<view class="list">
+  <image src="/icon/age.png"></image>
+  <view>{{info.age}}</view>
+</view>
+<view class="list" wx:if="{{info.school}}">
+  <image src="/icon/school4.png"></image>
+  <view>{{info.school}}</view>
+</view>
+<view class="list" wx:if="{{info.grade}}">
+  <image src="/icon/grade1.png"></image>
+  <view>{{info.grade}}</view>
+</view>
+<view class="list" wx:if="{{info.class}}">
+  <image src="/icon/class.png"></image>
+  <view>{{info.class}}</view>
+</view>
+  <view class="list" wx:if="{{showFace}}">
+  <image src="/icon/recognition.png"></image>
+    <view>
+    <view style="border:none;">只允许进校</view>
+      <switch checked='{{onlyIn}}' bindchange="switchChange"  />
+    </view>
+  </view>
+<view class="list" >
+  <image src="/icon/record.png"></image>
+  <view style="border:none;" >备注</view>
+</view>
+<view class="portrait-box" >
+  <textarea bindblur="relationInput" value="{{info.remark}}" placeholder="请填写您与孩子的关系，通过率更高喔~" />
+</view>
+<view class="list" style="border:none;" wx:if="{{showFace}}">
+  <image src="/icon/recognition.png"></image>
+  <view style="border:none;">学生照片 (点击图片更换)</view>
+</view>
+<view class="portrait-box" wx:if="{{showFace}}">
+  <view data-type="1" bindtap='UploadCheck'>
+    <image mode="aspectFill" src="{{info.face_image}}"></image>
+    <image class="image" wx:if="{{!info.face_image}}" mode="aspectFill" src="/icon/head.png"></image>
+   
+  </view>
+</view>
+<button wx:if="{{info.state != 2}}"  bindtap='submit'>{{info.state==1?"提交审核":"保存"}}</button>
+<button wx:else disabled='true' >审核中</button>
+<!-- <view wx:else style="height:150rpx;"></view> -->
+  <!-- <button bindtap='toEntranceCard'>门禁卡设置</button> -->
+
+
+
+<view wx:if="{{mask_disable}}" class="mask" bindtap="display"></view>
+<view wx:if="{{mask_disable}}" class="tipBox ripple flipInX">
+  <view class="title">
+    <text>检测到您没打开安全校园的摄像头权限，是否去设置打开？</text>
+  </view>
+  <view class="btuBox">
+    <text bindtap="display" class="cancel">取消</text>
+    <button open-type="openSetting" bindopensetting="map1" class="setBtu">去设置</button>
+  </view>
+</view>
+
+
+<!-- 相机 -->
+<camera wx:if="{{showCamera}}" device-position="{{cameraConfig.position}}" flash="{{cameraConfig.flash}}" bindstop="cameraStop" binderror="cameraError" class="cameraBox">
+  <cover-view class="viewBox">
+    <cover-view style='background-color: #fff;flex:1;'></cover-view>
+    <cover-view class="content">
+      <cover-image mode='widthFix' class="faceImg" src="/icon/face.png" />
+      <cover-view class="circle"></cover-view>
+    </cover-view>
+    <cover-view style='background-color: #fff;flex:1;'></cover-view>
+  </cover-view>
+
+  <cover-view class="cameraTab">
+    <cover-image class="tabImg" src="/icon/{{cameraConfig.flash}}.png" bindtap='flashChange'></cover-image>
+    <cover-image class="tabImg" src="/icon/switch.png" bindtap='positionChange'></cover-image>
+    <cover-view bindtap='cameraDisable'>取消</cover-view>
+  </cover-view>
+  <cover-view class="photographBtn" bindtap='takePhoto'>
+    <cover-image class="cameraImg" src="/icon/camera.png"></cover-image>
+  </cover-view>
+</camera>
