@@ -134,6 +134,12 @@ Page({
       showCamera: true
     })
   },
+    // 人脸图片上传校验
+    ParentUploadCheck: function(e) {
+      this.setData({
+        showCamera: true
+      })
+    },
   // 学号输出
   numInput: function(e) {
     num = e.detail.value;
@@ -200,7 +206,7 @@ Page({
     }
     if(!data.face_image){
       wx.showToast({
-        title: '请先录入人脸',
+        title: '请先录入学生人脸',
         icon: 'loading',
         duration: 1000
       })

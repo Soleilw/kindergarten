@@ -112,9 +112,8 @@
     </view> -->
   </block>
   
-  <!-- <block wx:if="{{isworkers&&showFace}}"> -->
-  <block>
-
+  <block wx:if="{{showFace}}">
+  <!-- <block wx:if="{{showFace}}"> -->
     <!-- 人脸 -->
     <view class="tableviewcell" style="border:none;justify-content: flex-start; ">
       <image class="left-icon" src="/icon/recognition.png"></image>
@@ -134,7 +133,7 @@
     </view>
   </block>
   <!-- <form report-submit="true" bindtap="Submission2" wx:if="{{showSubmit}}"> -->
-  <form report-submit="true" bindtap="Submission2">
+  <form report-submit="true" bindtap="Submission2" wx:if="{{showSubmit}}">
     <button formType="submit" open-type="submit">提交</button>
   </form>
 </view>

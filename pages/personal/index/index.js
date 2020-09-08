@@ -55,6 +55,7 @@ Page({
             userInfo: res.data.data,
             class_id: res.data.data.class_id
           })
+          
         } else {
           this.setData({
             userInfo: null

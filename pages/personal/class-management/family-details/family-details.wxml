@@ -45,4 +45,7 @@
     <text class="value" wx:if="{{info.remark}}">{{info.remark}}</text>
     <text class="value" wx:else>无</text>
   </view>
+  <view class="img">
+    <image mode="aspectFill" src="{{info.href}}"></image>
+  </view>
 </view>

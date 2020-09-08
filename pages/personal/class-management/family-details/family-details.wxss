@@ -66,3 +66,13 @@ button::after{
   margin:0 0 0 10rpx;
 } 
 
+.img {
+  padding: 20rpx 0;
+  text-align: center;
+}
+
+.img image{
+  width: 300rpx;
+  height: 300rpx;
+}
+

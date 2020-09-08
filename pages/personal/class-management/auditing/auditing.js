@@ -1,4 +1,5 @@
 const app = getApp()
+let allow_parent_in;
 Page({
   data: {
     list: [],
@@ -54,6 +55,7 @@ Page({
       id_card: data.id_card,
       address: data.address,
       remark: data.remark,
+      href: data.href
     }
 
     data.relation = e.currentTarget.dataset.relation
@@ -78,15 +80,42 @@ Page({
   toExamine: function (e) {
     let that = this;
     wx.showModal({
-      title: '审核提示',
-      content: '是否通过该家长的申请？',
-      cancelText: '不通过',
-      confirmText: '通过',
+      title: '家长入园提示',
+      content: '是否该家长进园？',
+      cancelText: '不允许',
+      confirmText: '允许',
       success: function (res) {
         if (res.confirm) {
-          that.throughAudit(e.currentTarget.dataset.value)
+          that.allow_parent_in = 1;
+          wx.showModal({
+            title: '审核提示',
+            content: '是否通过该家长的申请？',
+            cancelText: '不通过',
+            confirmText: '通过',
+            success: function (res) {
+              if (res.confirm) {
+                that.throughAudit(e.currentTarget.dataset.value)
+              } else if (res.cancel) {
+                that.NotThroughAudit(e.currentTarget.dataset.value)
+              }
+            }
+          })
         } else if (res.cancel) {
-          that.NotThroughAudit(e.currentTarget.dataset.value)
+          that.allow_parent_in = 2;
+
+          wx.showModal({
+            title: '审核提示',
+            content: '是否通过该家长的申请？',
+            cancelText: '不通过',
+            confirmText: '通过',
+            success: function (res) {
+              if (res.confirm) {
+                that.throughAudit(e.currentTarget.dataset.value)
+              } else if (res.cancel) {
+                that.NotThroughAudit(e.currentTarget.dataset.value)
+              }
+            }
+          })
         }
       }
     })
@@ -100,6 +129,7 @@ Page({
       data: {
         token: wx.getStorageSync('token'),
         state: 3,
+        allow_parent_in: that.allow_parent_in,
         id: id
       },
       method: 'post',
@@ -129,6 +159,7 @@ Page({
       url: app.globalData.host + '/pass/user/student',
       data: {
         token: wx.getStorageSync('token'),
+        allow_parent_in: that.allow_parent_in,
         state: 4,
         id: id
       },
