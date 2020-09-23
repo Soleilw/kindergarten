@@ -798,7 +798,7 @@ Page({
       }
       // let form_id = '';
       wx.requestSubscribeMessage({
-        tmplIds: ['WzOYkFYMmW67J3wxeLzcrlSJEyngFP1uIpxI9W4tbEQ'],
+        tmplIds: ['pA9lgngReazYM9rRBNcMdk2kKT8ccGVEbwpJlXDAEPA'],
         success(res) {
           // if(res.WzOYkFYMmW67J3wxeLzcrlSJEyngFP1uIpxI9W4tbEQ)
         },
@@ -848,24 +848,7 @@ Page({
         duration: 1000
       })
       return;
-    }
-    // else if (!user_info.user_iphone) {
-    //   wx.showToast({
-    //     title: '请输入手机号',
-    //     icon: 'loading',
-    //     duration: 1000
-    //   })
-    //   return;
-    // } 
-    // else if (!user_info.user_card) {
-    //   wx.showToast({
-    //     title: '请输入身份证',
-    //     icon: 'loading',
-    //     duration: 1000
-    //   })
-    //   return;
-    // }
-    else if (!user_info.user_address) {
+    } else if (!user_info.user_address) {
       wx.showToast({
         title: '请输入地址',
         icon: 'loading',

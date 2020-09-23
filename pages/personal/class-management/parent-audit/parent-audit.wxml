@@ -1,0 +1,19 @@
+<view class="box">
+  <view wx:for="{{list}}" wx:key="{{index}}" class="list">
+    <view class="infoList">
+      <view data-relation="{{item.relation}}" data-info="{{item.user_info}}" bindtap='toFamilyDetails'>
+        <image src="/icon/parent.png"></image>
+        <text class="guardian">{{item.user_info.name}}</text>
+      </view>
+      <view data-stu_number="{{item.id}}" data-info="{{item.student}}" bindtap='toChildrenDetails'>
+        <image src="/icon/children2.png"></image>
+        <text class="children">{{item.student.name}}</text>
+      </view>
+    </view>
+    <button wx:if="{{item.status == 1}}" data-value="{{item.id}}" bindtap='toExamine'>去审核</button>
+    <button wx:elif="{{item.status == 2}}" disabled='true'>已通过</button> 
+    <button wx:elif="{{item.status == 3}}" disabled='true' style="color: red">已拒绝</button> 
+    <button class="del_btn" data-id="{{item.id}}" bindtap="toDel">删除</button> 
+  </view>
+  <view wx:if="{{list.length == 0}}" class="notData">暂无家长审核~</view>
+</view>

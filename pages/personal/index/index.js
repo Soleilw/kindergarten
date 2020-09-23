@@ -11,7 +11,9 @@ Page({
     class_id: null,
     childList: [], // 服务列表
     school_id: '',
-    showBuy: false
+    showBuy: false,
+    allow_parent_in: '',
+    showApply: false
   },
   onLoad: function () {
     if (wx.getStorageSync('token')) {
@@ -33,10 +35,23 @@ Page({
       method: 'get',
       success: function (res) {
         let data = res.data.data;
+        console.log(res.data.data);
+        
         data.forEach(item => {
           if (item.mode == 2) {
             self.setData({
               showBuy: true
+            })
+          }
+          if (item.allow_parent_in == 1) {
+            self.setData({
+              showApply: true,
+              allow_parent_in: item.allow_parent_in
+            })
+          } else {
+            self.setData({
+              showApply: false,
+              allow_parent_in: item.allow_parent_in
             })
           }
         })
@@ -55,7 +70,7 @@ Page({
             userInfo: res.data.data,
             class_id: res.data.data.class_id
           })
-          
+
         } else {
           this.setData({
             userInfo: null
@@ -196,6 +211,12 @@ Page({
       return;
     }
   },
+  // 家长进校申请
+  applyIntoSchool() {
+    wx.navigateTo({
+      url: '../apply-intoSchool/apply-intoSchool',
+    })
+  },
   // 跳转家庭成员页
   // openFamily: function () {
   //   let that = this;
@@ -262,7 +283,7 @@ Page({
   openClassManagement: function () {
     let that = this;
     wx.navigateTo({
-      url: '../class-management/index/index?class_id=' + that.data.class_id
+      url: '../class-management/index/index?class_id=' + that.data.class_id + '&allow_parent_in=' + that.data.allow_parent_in
     })
   },
   // 跳转班级公告
@@ -388,7 +409,7 @@ Page({
         icon: 'none'
       })
     }
-    
+
     // wx.showToast({
     //   title: '暂不开放！',
     //   icon: 'fail',

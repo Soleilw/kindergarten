@@ -1,11 +1,23 @@
 var class_id
 Page({
   data: {
-    class_id: ''
+    class_id: '',
+    show: false
   },
   onLoad: function (options) {
     var self = this;
+    console.log(options);
+    
     self.class_id = options.class_id
+    if (self.options.allow_parent_in == 1) {
+      self.setData({
+        show: true
+      })
+    } else {
+      self.setData({
+        show: false
+      })
+    }
   },
   onShow: function () {
   
@@ -20,6 +32,11 @@ Page({
   toAudition: function () {
     wx.navigateTo({
       url: '../auditing/auditing'
+    })
+  },
+  toParentAudition() {
+    wx.navigateTo({
+      url: '../parent-audit/parent-audit'
     })
   },
 

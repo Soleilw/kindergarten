@@ -20,21 +20,17 @@ Page({
   getExamine: function () {
     let that = this;
     wx.request({
-      url: app.globalData.host + '/my/students',
+      url: app.globalData.host + '/my/parents',
       data: {
-        token: wx.getStorageSync('token'),
-        state: 2,
-        page: 1
+        token: wx.getStorageSync('token')
       },
       method: 'get',
       success: function (res) {
         wx.hideToast()
-        console.log('家长审核列表返回')
         console.log(res)
         if (res.data.data) {
-          that.list = res.data.data.data;
           that.setData({
-            list: res.data.data.data
+            list: res.data.data
           })
         }
       }
@@ -43,12 +39,10 @@ Page({
   // 查看家长的信息
   toFamilyDetails: function (e) {
     console.log('跳转家长信息页')
-    console.log(e.currentTarget.dataset.value)
-    let data = e.currentTarget.dataset.value
+    console.log(e);
+    let data = e.currentTarget.dataset.info
     console.log(data)
     var info = {
-      avatarUrl: data.avatarUrl,
-      nickname: data.nickname.replace('&', ' '),
       name: data.name,
       sex: data.sex,
       phone: data.phone,
@@ -59,31 +53,70 @@ Page({
     }
 
     data.relation = e.currentTarget.dataset.relation
-    //  return;
-    // wx.navigateTo({
-    //   url: '../family-details/family-details?avatarUrl=' + avatarUrl + '&nickname=' + `${nickname}` + '&name=' + name + '&sex=' + sex + '&phone=' + phone + '&id_card=' + id_card + '&address=' + address + '&remark=' + remark
-    // })
     wx.navigateTo({
-      url: '../family-details/family-details?data=' + JSON.stringify(info)
+      url: './family-details/family-details?data=' + JSON.stringify(info)
     })
   },
   // 查看孩子的信息
   toChildrenDetails: function (e) {
-    console.log('跳转学生信息页')
-    console.log(e.currentTarget.dataset.stu_number)
-    //  return;
+    console.log('跳转家长信息页')
+    console.log(e);
+    let data = e.currentTarget.dataset.info
+    console.log(data)
+    var info = {
+      name: data.name,
+      sex: data.sex,
+      href: data.face_image,
+      number: data.number,
+      age: data.age
+    }
+
     wx.navigateTo({
-      url: '../children-details/children-details?stu_number=' + e.currentTarget.dataset.stu_number
+      url: './children-details/children-details?data=' + JSON.stringify(info)
     })
+  },
+  // 删除
+  toDel(e) {
+    let self = this;
+    console.log(e);
+    wx.showModal({
+      title: '提示',
+      content: '是否删除该家长的申请记录',
+      cancelText: '取消',
+      confirmText: '删除',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: app.globalData.host + '/apply/into?id=' + e.currentTarget.dataset.id + '&token=' + wx.getStorageSync('token'),
+            method: 'delete',
+            success: function (res) {
+              wx.showToast({
+                icon: "none",
+                title: '删除成功'
+            });
+              self.getExamine();
+            }
+          });
+        } else if (res.cancel) {
+          wx.showToast({
+            icon: "none",
+            title: '取消成功'
+        });
+        }
+      }
+    })
+   
   },
   // 去审核
   toExamine: function (e) {
     let that = this;
+    console.log('去审核', e);
+    
     wx.showModal({
-      title: '审核提示',
-      content: '是否通过该家长的申请？',
-      cancelText: '不通过',
-      confirmText: '通过',
+      title: '家长入园提示',
+      content: '是否该家长进园？',
+      cancelText: '不允许',
+      confirmText: '允许',
       success: function (res) {
         if (res.confirm) {
           that.throughAudit(e.currentTarget.dataset.value)
@@ -92,23 +125,22 @@ Page({
         }
       }
     })
-    
   },
   // 通过审核
   throughAudit: function (id) {
     let that = this;
     console.log(id)
     wx.request({
-      url: app.globalData.host + '/pass/user/student',
+      url: app.globalData.host + '/pass/parents',
       data: {
         token: wx.getStorageSync('token'),
-        state: 3,
+        state: 2,
         id: id
       },
       method: 'post',
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
+      // header: {
+      //   "content-type": "application/x-www-form-urlencoded"
+      // },
       success: function (res) {
         console.log('通过审核返回')
         console.log(res)
@@ -129,16 +161,16 @@ Page({
   NotThroughAudit: function (id) {
     let that = this;
     wx.request({
-      url: app.globalData.host + '/pass/user/student',
+      url: app.globalData.host + '/pass/parents',
       data: {
         token: wx.getStorageSync('token'),
-        state: 4,
+        state: 3,
         id: id
       },
       method: 'post',
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
+      // header: {
+      //   "content-type": "application/x-www-form-urlencoded"
+      // },
       success: function (res) {
         console.log('不通过审核返回')
         console.log(res)

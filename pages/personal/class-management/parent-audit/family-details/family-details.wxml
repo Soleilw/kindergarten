@@ -1,0 +1,36 @@
+<view class="list">
+  <view class="tableviewcell">
+    <image class="left-icon" src="/icon/my1.png" />
+    <text>真实姓名</text>
+    <text class="value">{{info.name}}</text>
+  </view>
+  <view class="tableviewcell">
+    <image class="left-icon" src="/icon/sex1.png" />
+    <text>性别</text>
+    <text class="value">{{info.sex == 1 ? '男' : '女'}}</text>
+  </view>
+  <view class="tableviewcell">
+    <image class="left-icon" src="/icon/iphone.png" />
+    <text>手机</text>
+    <text class="value">{{info.phone}}</text>
+  </view>
+  <view class="tableviewcell">
+    <image class="left-icon" src="/icon/ID.png" />
+    <text>身份证</text>
+    <text class="value">{{info.id_card}}</text>
+  </view>
+  <view class="tableviewcell">
+    <image class="left-icon" src="/icon/address.png" />
+    <text>地址</text>
+    <text class="value">{{info.address}}</text>
+  </view>
+  <view class="tableviewcell">
+    <image class="left-icon" src="/icon/record.png" />
+    <text>备注信息</text>
+    <text class="value" wx:if="{{info.remark}}">{{info.remark}}</text>
+    <text class="value" wx:else>无</text>
+  </view>
+  <view class="img">
+    <image mode="aspectFill" src="{{info.href}}"></image>
+  </view>
+</view>
