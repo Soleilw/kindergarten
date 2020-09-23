@@ -13,7 +13,8 @@ Page({
     school_id: '',
     showBuy: false,
     allow_parent_in: '',
-    showApply: false
+    showApply: false,
+    hasInfo: false
   },
   onLoad: function () {
     if (wx.getStorageSync('token')) {
@@ -64,7 +65,16 @@ Page({
       url: app.globalData.host + '/user/info?token=' + wx.getStorageSync('token'),
       method: 'GET',
       success: (res) => {
-        console.log(res)
+        console.log(res.data.data.href)
+        if (res.data.data.href) {
+          this.setData({
+            hasInfo: true
+          })
+        } else {
+          this.setData({
+            hasInfo: false
+          })
+        }
         if (res.statusCode == 200) {
           this.setData({
             userInfo: res.data.data,
@@ -213,9 +223,17 @@ Page({
   },
   // 家长进校申请
   applyIntoSchool() {
-    wx.navigateTo({
-      url: '../apply-intoSchool/apply-intoSchool',
-    })
+    if (this.data.hasInfo) {
+      wx.navigateTo({
+        url: '../apply-intoSchool/apply-intoSchool',
+      })
+    } else {
+      wx.showToast({
+        title: '请补充完整个人信息',
+        icon: 'none'
+      })
+    }
+    
   },
   // 跳转家庭成员页
   // openFamily: function () {

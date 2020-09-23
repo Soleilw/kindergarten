@@ -79,7 +79,7 @@ App({
     let app = this;
     console.log('getXConfig');
     wx.request({
-      url: 'https://gong.fengniaotuangou.cn/api/user/config?school=kindergarten&version=1.0.2',
+      url: 'https://gong.fengniaotuangou.cn/api/user/config?school=kindergarten&version=1.0.3',
       method:'GET',
       success:function(res){
         console.log(res.data.data);
