@@ -1,0 +1,17 @@
+<!--pages/personal/checking-in/checking-in.wxml-->
+<view class="check-box">
+	<view class="check-card">
+		<view class="title">当前为上班打卡模式</view>
+		<view class="btn">
+      <view>打卡</view>
+      <view>10:10:10</view>
+    </view>
+		<view class="tip">查看日期</view>
+	</view>
+  <view class="check-rec">
+    <view class="title">打卡记录</view>
+    <view class="content">
+      <!-- <view></view> -->
+    </view>
+  </view>
+</view>

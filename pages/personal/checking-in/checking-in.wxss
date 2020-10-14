@@ -1,0 +1,58 @@
+/* pages/personal/checking-in/checking-in.wxss */
+.check-box {
+  position: relative;
+}
+.check-box .check-card {
+  position: fixed;
+  height: 420rpx;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.check-box .check-card .title {
+  text-align: center;
+  color: #2a9f93;
+  padding: 20rpx;
+}
+
+.check-box .check-card .btn {
+  margin: 20rpx;
+  width: 220rpx;
+  height: 220rpx;
+  background-color: #2a9f93;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  border: 10rpx solid #93e7df;
+  /* line-height: 200rpx; */
+}
+
+.check-box .check-card .btn view {
+  margin-top: 42rpx;
+}
+
+.check-box .check-card .tip {
+  color: #2a9f93;
+  padding: 5rpx;
+  border-bottom: 4rpx solid #2a9f93;
+}
+
+.check-box .check-rec {
+  position: absolute;
+  top: 440rpx;
+  left: 0;
+  right: 0;
+  /* height: 200rpx; */
+  padding: 20rpx;
+}
+
+.check-box .check-rec .title {
+  /* text-align: center; */
+  color: #2a9f93;
+}

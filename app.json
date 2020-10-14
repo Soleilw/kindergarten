@@ -39,7 +39,8 @@
     "pages/personal/apply-intoSchool/apply-intoSchool",
     "pages/personal/class-management/parent-audit/parent-audit",
     "pages/personal/class-management/parent-audit/family-details/family-details",
-    "pages/personal/class-management/parent-audit/children-details/children-details"
+    "pages/personal/class-management/parent-audit/children-details/children-details",
+    "pages/personal/checking-in/checking-in"
   ],
   "window": {
     "backgroundTextStyle": "light",

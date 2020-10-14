@@ -536,6 +536,12 @@ Page({
     wx.navigateTo({
       url: './service-detail/service-detail?student_id=' + self.data.childList[e.detail.value].id
     })
-  }
+  },
+
+  openChecking() {
+    wx.navigateTo({
+      url: '../checking-in/checking-in',
+    })
+  },
 
 })

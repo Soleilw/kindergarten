@@ -117,6 +117,13 @@
 			<image src="/icon/lookup.png" />
 			<text>成绩查询</text>
 		</view>
+			<view bindtap='openChecking'>
+			<form bindsubmit="getFormID" report-submit="true">
+				<button formType="submit" class="formBtu"></button>
+			</form>
+			<image src="/icon/checking.png" />
+			<text>考勤打卡</text>
+		</view>
 		<!-- <view bindtap='bindViewTap'>
       <form bindsubmit="getFormID" report-submit="true">
         <button formType="submit" class="formBtu"></button>
