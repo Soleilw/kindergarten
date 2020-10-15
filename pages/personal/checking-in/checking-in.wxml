@@ -21,7 +21,7 @@
 	<view class="caledar-box" wx:if="{{show}}" animation="{{animationData}}">
 		<view class="close" bindtap="closeCaledar">关闭</view>
 		<calendar binddayClick="dayClick" data-index="{{index}}" binddateChange="dateChange" bindprevMonth="prev" bindnextMonth="next" days-color="{{daysColor}}" cell-size="22" weeks-type="cn" calendar-style="calendar" header-style="hd" board-style="board" class="calendar" />
-		<view class="time" wx:if="{{showTime}}">
+		<view class="time">
       <view class="duty">
         <image class="auto-img" src="/icon/working.png"></image>
         <view class="on-time">11:11:12</view>

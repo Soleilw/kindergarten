@@ -14,7 +14,6 @@ Page({
       background: "#2a9f93" //日期单元格的颜色
     }], // 日历
     show: false,
-    showTime: true
   },
 
   /**
