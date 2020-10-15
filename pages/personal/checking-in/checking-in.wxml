@@ -4,7 +4,7 @@
 		<view class="title">当前为上班打卡模式</view>
 		<view class="btn">
       <view>打卡</view>
-      <view>10:10:10</view>
+      <view>{{nowTime}}</view>
     </view>
 		<view class="tip">查看日期</view>
 	</view>

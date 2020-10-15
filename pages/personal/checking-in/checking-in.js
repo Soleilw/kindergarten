@@ -5,14 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    nowTime: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.currentTime()
+  },
 
+  currentTime() {
+    setInterval(this.getDate, 500);
+  },
+
+  getDate() {
+    var self = this;
+    let hh = new Date().getHours();
+    let mf =
+      new Date().getMinutes() < 10
+        ? "0" + new Date().getMinutes()
+        : new Date().getMinutes();
+    let ss = new Date().getSeconds() < 10 ? "0" + new Date().getSeconds() : new Date().getSeconds();
+    self.setData({
+      nowTime: hh + ":" + mf + ":" + ss
+    })
+  },
+
+  // 销毁定时器
+  beforeDestroy: function () {
+    if (this.getDate) {
+      clearInterval(this.getDate);
+    }
   },
 
   /**
