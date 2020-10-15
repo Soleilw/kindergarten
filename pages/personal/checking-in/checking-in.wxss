@@ -2,6 +2,7 @@
 .check-box {
   position: relative;
 }
+
 .check-box .check-card {
   position: fixed;
   height: 420rpx;
@@ -29,7 +30,7 @@
   border-radius: 50%;
   text-align: center;
   color: #fff;
-  border: 10rpx solid #93e7df;
+  border: 10rpx solid #b3f3ed;
   /* line-height: 200rpx; */
 }
 
@@ -56,3 +57,46 @@
   /* text-align: center; */
   color: #2a9f93;
 }
+
+.caledar-box {
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: auto;
+  background-color: rgba(255, 255, 255, .9);
+  /* background-color: #000; */
+  opacity: 0.8;
+}
+
+.caledar-box .calendar {
+  padding: 20rpx;
+}
+
+.caledar-box .close {
+  /* float: right; */
+  /* display: flex; */
+  text-align: right;
+  padding: 50rpx 20rpx;
+  color: #2a9f93;
+}
+
+.caledar-box .duty {
+  display: flex;
+  padding: 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.caledar-box .duty .auto-img {
+  display: block;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.caledar-box .duty .on-time {
+  margin-left: 30rpx;
+}
+
+
