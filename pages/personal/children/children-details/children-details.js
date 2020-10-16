@@ -62,8 +62,6 @@ Page({
   switchChange:function(e){
     this.setData({
       onlyIn: e.detail.value,
-      // isteacher: this.isteacher,
-      // u_info: this.u_info
     })
   },
   // 跳转门禁卡设置
@@ -293,9 +291,7 @@ Page({
         });
         qiniuUploader.upload(res.tempImagePath,(res) => {
           console.log(res.fileURL)
-          // that.setData({
-          //     'imageObject': res
-          // });
+       
           wx.hideToast();
           that.data.info.face_image = res.fileURL
               that.setData({
@@ -303,48 +299,7 @@ Page({
                 showCamera:false
               })
           console.log('checkFace');
-          // wx.request({
-          //   url: app.globalData.apihost+'/check/face',
-          //   method:'POST',
-          //   data:{
-          //     href:res.fileURL
-          //   }
-          //   ,success:(checkres)=>{
-          //     console.log(checkres)
-          //     wx.hideToast();
-          //     if(checkres.statusCode==200){
-          //             that.data.info.face_image = res.fileURL
-          //     that.setData({
-          //       info:that.data.info,
-          //       showCamera:false
-          //     })
-          //     }else{
-          //       console.log(checkres)
-          //       wx.showModal({
-          //         title: '检测失败',
-          //         content: checkres.data.msg,
-          //         success (res) {
-          //           if (res.confirm) {
-          //             console.log('用户点击确定')
-          //           } else if (res.cancel) {
-          //             console.log('用户点击取消')
-          //           }
-          //         }
-          //       })
-          //     }
-          //   }
-          //   ,fail:(res)=>{
-          //     console.log(res)
-          //     wx.showModal({
-          //       title: '错误提示',
-          //       content: checkres.msg,
-          //       showCancel: false,
-          //       success: function(res) {}
-          //     })
-          //   },complete:(res)=>{
-          //     console.log(res)
-          //   }
-          // })
+       
           console.log('提示: wx.chooseImage 目前微信官方尚未开放获取原图片名功能(2020.4.22)');
           console.log('file url is: ' + res.fileURL);
       }, (error) => {

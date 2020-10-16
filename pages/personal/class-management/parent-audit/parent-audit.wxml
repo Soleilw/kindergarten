@@ -10,7 +10,7 @@
         <text class="children">{{item.student.name}}</text>
       </view>
     </view>
-    <button wx:if="{{item.status == 1}}" data-value="{{item.id}}" bindtap='toExamine'>去审核</button>
+    <button wx:if="{{item.status == 1 || item.status == 4}}" data-value="{{item.id}}" bindtap='toExamine'>去审核</button>
     <button wx:elif="{{item.status == 2}}" disabled='true'>已通过</button> 
     <button wx:elif="{{item.status == 3}}" disabled='true' style="color: red">已拒绝</button> 
     <button class="del_btn" data-id="{{item.id}}" bindtap="toDel">删除</button> 

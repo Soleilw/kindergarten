@@ -82,41 +82,22 @@ Page({
   },
 
   onLoad: function (options) {
-    // console.log('data');
-    // 初始化
-    // console.log('openFace'+app.globalData.openFace);
     register_type = true;
-    // let info = app.globalData.userInfo;
     this.showCamera = false //是否显示照相机
     this.cameraConfig = { //照相机参数配置
       flash: 'off',
       position: 'front'
     }
-    // let isworker = info.worker ==0?false:true;
     this.setData({
       isteacher: false,
-      // isworkers: isworker,
       mask_disable: false,
-      // userInfo: info,
       showFace: wx.getStorageSync('openFace')
     })
     this.getMyinfo();
     this.getSchoolsList();
     this.setData({
       showFace: wx.getStorageSync('openFace')
-      // showFace = app.globalData.openFace
     })
-    // wx.showToast({title: '加载中',icon: 'loading', mask: true,duration: 10000})
-  },
-
-  onShow: function () {
-
-    // console.log("this.showFace".this.showFace);
-    // console.log()
-    // this.showFace = app.globalData.openFace==1?true:false;
-  },
-  onHide: function () {
-
   },
   getMyinfo: function () {
     console.log('getMyinfo');
@@ -143,9 +124,8 @@ Page({
           setTimeout(function () {
             //要延时执行的代码
             wx.navigateBack()
-          }, 1000) //
+          }, 1000)
           console.log('go')
-
         }
         if (res.statusCode == 401) {
           wx.showToast({
@@ -198,10 +178,7 @@ Page({
 
   // 设置显示个人信息
   bindPickerChange: function (e) {
-    // console.log(this.workers)
-    // let workers = this.workers;
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    // console.log('picker发送选择改变，携带值为', this.workers[e.detail.value].type)
     this.data.userInfo.worker = this.data.workers[e.detail.value].type
     this.data.userInfo.worker_type = this.data.workers[e.detail.value].name
     if (this.data.grades.length == 0 && this.data.userInfo.school_id != 0 && e.detail.value == 1) {
@@ -211,11 +188,7 @@ Page({
       type: e.detail.value,
       userInfo: this.data.userInfo,
       showSubmit: true
-      // typeString : workers[e.detail.value].name
     })
-    // this.setData({
-    //   index: e.detail.value
-    // })
   },
 
   bindSchoolChange: function (e) {
@@ -231,8 +204,6 @@ Page({
     })
     this.getGradeList(this.data.schools[e.detail.value].id);
   },
-
-
   setInfo: function (info) {
     console.log('显示信息')
     wx.hideToast()
@@ -301,11 +272,6 @@ Page({
     this.u_info.user_mail = e.detail.value;
   },
 
-  // 身份证输入
-  // cardInput: function(e) {
-  //   this.data.userInfo.id_card = e.detail.value;
-  // },
-
   // 地址输入
   addressInput: function (e) {
     this.data.userInfo.address = e.detail.value;
@@ -314,11 +280,6 @@ Page({
   // 地点输入监听
   map: function (e) {
     let that = this;
-    // return;
-    // that.setData({
-    //   // userInfo: that.data.userInfo,
-    //   showSubmit:true
-    // })
     wx.chooseLocation({
       success: function (res) {
         console.log('选择的地址')
@@ -342,31 +303,12 @@ Page({
           }
         })
       },
-      complete: function () {
-        // that.setData({
-        //   //   // userInfo: that.data.userInfo,
-        //     showSubmit:true
-        //   })
-      }
+      complete: function () {}
     })
   },
   // 授权返回
   authorization: function (e) {
     this.display()
-    // let that = this
-    // console.log(e.detail.authSetting['scope.userLocation'])
-    // if (e.detail.authSetting['scope.userLocation']) {
-    //   wx.chooseLocation({
-    //     success: function(res) {
-    //       console.log('选择的地址')
-    //       console.log(res.address)
-    //       that.u_info.user_address = res.address
-    //       that.setData({
-    //         u_info: that.u_info
-    //       })
-    //     }
-    //   })
-    // }
   },
   // 工作单位输入
   wordInput: function (e) {
@@ -402,8 +344,6 @@ Page({
         userInfo: this.data.userInfo,
         isworkers: e.detail.value,
         showSubmit: true
-        // isteacher: this.isteacher,
-        // u_info: this.u_info
       })
       this.isteacher = !e.detail.value
     } else {
@@ -414,8 +354,6 @@ Page({
         userInfo: this.data.userInfo,
         isworkers: e.detail.value,
         showSubmit: true
-        // isteacher: this.isteacher,
-        // u_info: this.u_info
       })
     }
 
@@ -471,10 +409,6 @@ Page({
   // 年级选择
   gradeChange: function (e) {
     let that = this;
-
-    // console.log(that.grade_array[e.detail.value])
-    // that.userInfo.grade_id = that.data.grades[e.detail.value].id
-    // that.u_info.class_name = '请选择班级'
     that.data.userInfo.grade = that.data.grades[e.detail.value].title
     that.setData({
       userInfo: that.data.userInfo,
@@ -483,11 +417,6 @@ Page({
     })
     that.getClassList(e.detail.value);
     console.log(e.detail.value)
-    // console.log(that.grade_array)
-    // 获取班级列表
-    // that.getClassList(that.grade_array[e.detail.value][0]);
-    // that.getClassList(that.grade_array[e.detail.value].replace(/[年级]/g, ''));
-
   },
 
 
@@ -500,7 +429,6 @@ Page({
       select_class: e.detail.value,
       userInfo: this.data.userInfo,
       showSubmit: true
-      // u_info: this.u_info
     })
   },
   // 人脸图片上传校验
@@ -555,29 +483,6 @@ Page({
       }
     })
   },
-  // 获取年级列表
-  // getGradeList: function() {
-  //   let that = this;
-  //   wx.request({
-  //     url: app.globalData.https + '/class/select_grade',
-  //     method: 'get',
-  //     success: function(res) {
-  //       console.log('年级列表')
-  //       console.log(res)
-  //       if (res.data.data) {
-  //         let grade_list = [];
-  //         for (let i = 0; i < res.data.data.length; i++) {
-  //           grade_list[i] = res.data.data[i].class_grade + "年级"
-  //         }
-  //         that.grade_array = grade_list;
-  //         that.setData({
-  //           grade_array: grade_list
-  //         })
-  //       }
-  //     }
-  //   });
-  // },
-
   // 根据年级获取班级列表
   getClassList: function (num) {
     console.log(num)
@@ -730,8 +635,6 @@ Page({
   //职工提交审核
   Submission2: function (e) {
     console.log("SUBmittiso2n")
-    // console.log('formID:' + e.detail.formId)
-
     let that = this;
     let info = that.data.userInfo;
     console.log(info)
@@ -757,12 +660,6 @@ Page({
       })
       return;
     } else {
-      // console.log('职工提交')
-      // console.log(user_info)
-      // console.log('昵称过滤前：' + user_info.user_alias)
-      // user_info.user_alias = user_info.user_alias.replace(regStr, ""); //过滤emoji表情
-      // console.log('昵称过滤后：' + user_info.user_alias)
-
       if (that.data.isworkers && !info.school_id) {
         wx.showToast({
           title: '请先选择学校！',
@@ -771,7 +668,6 @@ Page({
         })
         return;
       }
-
       if (info.school_id && info.worker == 0) {
         wx.showToast({
           title: '请选择职位！',
@@ -796,7 +692,6 @@ Page({
         })
         return;
       }
-      // let form_id = '';
       wx.requestSubscribeMessage({
         tmplIds: ['pA9lgngReazYM9rRBNcMdk2kKT8ccGVEbwpJlXDAEPA'],
         success(res) {
@@ -823,11 +718,21 @@ Page({
         method: 'POST',
         success: (res) => {
           if (res.statusCode == 200) {
-            wx.showToast({
-              title: '提交成功！',
-              icon: 'loading',
-              duration: 1000
-            })
+            console.log(info.worker);
+            if (info.worker == 0) {
+              console.log(111);
+              wx.showToast({
+                title: '提交成功！如有提交进校申请, 请联系班主任重新审核进校申请',
+                icon: 'none',
+                duration: 4000
+              })
+            } else {
+              wx.showToast({
+                title: '提交成功！',
+                icon: 'loading',
+                duration: 1000
+              })
+            }
             that.setData({
               showSubmit: false
             })
@@ -1142,23 +1047,20 @@ Page({
           duration: 100000
         })
         qiniuUploader.upload(res.tempImagePath, (res) => {
-            // console.log(res)
-            // that.setData({
-            //     'imageObject': res
-            // });
             console.log('check/face');
             wx.request({
               url: app.globalData.apihost + '/check/face',
               method: 'POST',
               data: {
-                href: res.fileURL
+                href: res.fileURL,
               },
               success: (checkres) => {
                 wx.hideToast();
                 if (checkres.statusCode == 200) {
                   that.data.userInfo.href = res.fileURL
                   that.setData({
-                    userInfo: that.data.userInfo
+                    userInfo: that.data.userInfo,
+                    showSubmit: true
                   })
                 } else {
                   wx.showModal({

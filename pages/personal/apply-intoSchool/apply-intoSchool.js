@@ -158,6 +158,7 @@ Page({
         } else if (res.statusCode == 422) {
           wx.showModal({
             title: '提示',
+            cancel: false,
             content: '申请记录已存在，请联系班主任审核',
             success(res) {
               if (res.confirm) {

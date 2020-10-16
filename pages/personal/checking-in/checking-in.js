@@ -1,5 +1,7 @@
 // pages/personal/checking-in/checking-in.js
 var Lunar = require('../../../utils/lunar')
+const app = getApp()
+
 Page({
 
   /**
@@ -14,6 +16,13 @@ Page({
       background: "#2a9f93" //日期单元格的颜色
     }], // 日历
     show: false,
+    attendanceList: [],
+    working: true,
+    worked: true,
+    on_time: '', // 上班时间
+    off_time: '', // 下班时间
+    t1: '',
+    t2: ''
   },
 
   /**
@@ -21,6 +30,7 @@ Page({
    */
   onLoad: function (options) {
     this.currentTime();
+    this.getAttendance();
     // 当前时间
     let time = new Date();
     let year = time.getFullYear();
@@ -51,7 +61,6 @@ Page({
       })
     }.bind(this), 200)
   },
-
   closeCaledar() {
     var self = this;
     var animation = wx.createAnimation({
@@ -73,10 +82,113 @@ Page({
     }.bind(this), 200)
   },
 
+  dayClick(e) {
+    console.log(e);
+    var self= this
+    var time = e.detail.year + '-' + e.detail.month + '-' + e.detail.day + ' ' + '00:00:00';
+    var endTime = e.detail.year + '-' + e.detail.month + '-' + e.detail.day + ' ' + '23:59:59';
+    wx.request({
+      url: app.globalData.host + '/signs',
+      method: 'get',
+      data: {
+        token: wx.getStorageSync('token'),
+        start: time,
+        end: endTime
+      },
+      success: (res) => {
+        console.log(res.data.data.length);
+        if (res.data.data.length > 0) {
+          self.setData({
+            t1: res.data.data[0].created_at,
+            t2: res.data.data[1].created_at,
+          })
+        } else {
+          self.setData({
+            t1: '',
+            t2: '',
+          })
+        }
+      }
+    })
+  },
+
+  // 监听点击下个月事件
+  next: function (event) {
+    console.log(event.detail);
+  },
+  // 监听点击上个月事件
+  prev: function (event) {
+    console.log(event.detail);
+  },
+
+  // 获取打卡记录
+  getAttendance() {
+    var self = this;
+    wx.request({
+      url: app.globalData.host + '/signs',
+      method: 'get',
+      data: {
+        token: wx.getStorageSync('token'),
+      },
+      success: (res) => {
+        console.log(res.data);
+        self.setData({
+          attendanceList: res.data.data,
+        })
+        // if (res.statusCode == 200) {
+        //   console.log('获取学校', res);
+        // }
+      }
+    })
+  },
+
+  // 手动打卡
+  toAttendance(e) {
+    var self = this;
+    if (self.data.worked) {
+      wx.request({
+        url: app.globalData.host + '/sign',
+        method: 'POST',
+        data: {
+          token: wx.getStorageSync('token'),
+          type: 2,
+          status: 1
+        },
+        success: (res) => {
+          if (res.statusCode == 200) {
+            console.log(res);
+            wx.showToast({
+              title: '打卡成功',
+              icon: 'none',
+              success() {
+                self.getAttendance();
+                self.setData({
+                  working: false,
+                  worked: false
+                })
+              }
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+          }
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '未到下班打卡时间, 不能打卡',
+        icon: 'none'
+      })
+    }
+
+  },
+
+  // 定时器
   currentTime() {
     setInterval(this.getDate, 500);
   },
-
   getDate() {
     var self = this;
     let hh = new Date().getHours();
@@ -89,7 +201,6 @@ Page({
       nowTime: hh + ":" + mf + ":" + ss
     })
   },
-
   // 销毁定时器
   beforeDestroy: function () {
     if (this.getDate) {

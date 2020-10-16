@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "calendar": "plugin://calendar/calendar"
-  }
+  },
+  "navigationBarTitleText": "考勤打卡"
 }

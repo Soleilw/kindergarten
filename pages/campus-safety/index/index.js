@@ -907,6 +907,7 @@ Page({
   },
   // 监听点击日历具体某一天的事件
   dayClick: function (event) {
+    console.log(event);
     console.log(event.currentTarget.dataset.index);
     console.log(event.detail);
     let data = this.childrenlist;

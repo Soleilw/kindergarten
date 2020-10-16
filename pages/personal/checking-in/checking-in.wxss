@@ -18,9 +18,10 @@
 
 .check-box .check-card .title {
   text-align: center;
-  color: #2a9f93;
   padding: 20rpx;
+  color: #2a9f93;
 }
+
 
 .check-box .check-card .btn {
   margin: 20rpx;
@@ -31,10 +32,26 @@
   text-align: center;
   color: #fff;
   border: 10rpx solid #b3f3ed;
-  /* line-height: 200rpx; */
 }
 
+.check-box .check-card .btn1 {
+  margin: 20rpx;
+  width: 220rpx;
+  height: 220rpx;
+  background-color: #666666;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  border: 10rpx solid #CCCCCC;
+}
+
+
+
 .check-box .check-card .btn view {
+  margin-top: 42rpx;
+}
+
+.check-box .check-card .btn1 view {
   margin-top: 42rpx;
 }
 
@@ -49,13 +66,21 @@
   top: 440rpx;
   left: 0;
   right: 0;
-  /* height: 200rpx; */
   padding: 20rpx;
 }
 
 .check-box .check-rec .title {
-  /* text-align: center; */
   color: #2a9f93;
+}
+
+.check-box .check-rec .item {
+  width: 100%;
+  padding: 10rpx;
+  border-bottom: solid 1rpx #ccc;
+  font-size: 28rpx;
+}
+.check-box .check-rec .item text{
+  padding: 0 10rpx;
 }
 
 .caledar-box {
@@ -67,8 +92,6 @@
   left: 0;
   margin: auto;
   background-color: rgba(255, 255, 255, .9);
-  /* background-color: #fff; */
-  /* opacity: 0.8; */
 }
 
 .caledar-box .calendar {
@@ -76,10 +99,8 @@
 }
 
 .caledar-box .close {
-  /* float: right; */
-  /* display: flex; */
   text-align: right;
-  padding: 50rpx 20rpx;
+  padding: 40rpx 20rpx;
   color: #2a9f93;
 }
 

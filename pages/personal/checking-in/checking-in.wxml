@@ -1,18 +1,22 @@
 <!--pages/personal/checking-in/checking-in.wxml-->
 <view class="check-box">
 	<view class="check-card">
-		<view class="title">当前为上班打卡模式</view>
-		<view class="btn">
+		<view class="title" wx:if="{{working}}">当前为上班打卡模式</view>
+		<view class="title" wx:else>当前为下班打卡模式</view>
+		<view class="{{worked ? 'btn' : 'btn1'}}" bindtap="toAttendance" data-time="{{nowTime}}">
 			<view>打卡</view>
 			<view>{{nowTime}}</view>
 		</view>
-		<view class="tip" bindtap="showCaledar">查看日期</view>
+		<view class="tip" bindtap="showCaledar">查看打卡详情</view>
 
 	</view>
 	<view class="check-rec">
 		<view class="title">打卡记录</view>
-		<view class="content">
-			<!-- <view></view> -->
+		<view class="item" wx:for="{{attendanceList}}">
+			<text style="color: #2a9f93">{{item.name}}</text>
+			于
+			<text style="color: red">{{item.created_at}}</text>
+			{{item.status == 1 ? '上班':'下班'}}打卡
 		</view>
 	</view>
 </view>
@@ -20,16 +24,16 @@
 <block>
 	<view class="caledar-box" wx:if="{{show}}" animation="{{animationData}}">
 		<view class="close" bindtap="closeCaledar">关闭</view>
-		<calendar binddayClick="dayClick" data-index="{{index}}" binddateChange="dateChange" bindprevMonth="prev" bindnextMonth="next" days-color="{{daysColor}}" cell-size="22" weeks-type="cn" calendar-style="calendar" header-style="hd" board-style="board" class="calendar" />
+		<calendar binddayClick="dayClick" data-index="{{index}}" binddateChange="dateChange" bindprevMonth="prev" bindnextMonth="next" days-color="{{daysColor}}" cell-size="22" weeks-type="cn" calendar-style="calendar" header-style="hd" board-style="board" />
 		<view class="time">
-      <view class="duty">
-        <image class="auto-img" src="/icon/working.png"></image>
-        <view class="on-time">11:11:12</view>
-      </view>
-      <view class="duty">
-        <image class="auto-img" src="/icon/worked.png"></image>
-        <view class="on-time">11:11:12</view>
-      </view>
+			<view class="duty">
+				<image class="auto-img" src="/icon/working.png"></image>
+				<view class="on-time">{{t1}}</view>
+			</view>
+			<view class="duty">
+				<image class="auto-img" src="/icon/worked.png"></image>
+				<view class="on-time">{{t2}}</view>
+			</view>
 		</view>
 	</view>
 </block>
