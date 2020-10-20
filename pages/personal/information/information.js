@@ -722,7 +722,7 @@ Page({
             if (info.worker == 0) {
               console.log(111);
               wx.showToast({
-                title: '提交成功！如有提交进校申请, 请联系班主任重新审核进校申请',
+                title: '提交成功！如有提交进校申请, 请联系班主任重新审核',
                 icon: 'none',
                 duration: 4000
               })
