@@ -21,8 +21,8 @@ Page({
     worked: true,
     on_time: '', // 上班时间
     off_time: '', // 下班时间
-    t1: '',
-    t2: ''
+    tList: '',
+    totay: ''
   },
 
   /**
@@ -97,17 +97,10 @@ Page({
       },
       success: (res) => {
         console.log(res.data.data.length);
-        if (res.data.data.length > 0) {
           self.setData({
-            t1: res.data.data[0].created_at,
-            t2: res.data.data[1].created_at,
+            tList: res.data.data,
+            today: e.detail.year + '-' + e.detail.month + '-' + e.detail.day
           })
-        } else {
-          self.setData({
-            t1: '',
-            t2: '',
-          })
-        }
       }
     })
   },
@@ -131,13 +124,9 @@ Page({
         token: wx.getStorageSync('token'),
       },
       success: (res) => {
-        console.log(res.data);
         self.setData({
           attendanceList: res.data.data,
         })
-        // if (res.statusCode == 200) {
-        //   console.log('获取学校', res);
-        // }
       }
     })
   },
@@ -207,53 +196,4 @@ Page({
       clearInterval(this.getDate);
     }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

@@ -37,7 +37,7 @@ Page({
       success: function (res) {
         let data = res.data.data;
         console.log(res.data.data);
-        
+
         data.forEach(item => {
           if (item.mode == 2) {
             self.setData({
@@ -233,7 +233,7 @@ Page({
         icon: 'none'
       })
     }
-    
+
   },
   // 跳转家庭成员页
   // openFamily: function () {
@@ -539,9 +539,15 @@ Page({
   },
 
   openChecking() {
-    wx.navigateTo({
-      url: '../checking-in/checking-in',
-    })
+    if (wx.getStorageSync('token')) {
+      wx.navigateTo({
+        url: '../checking-in/checking-in',
+      })
+    } else {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      })
+    }
   },
-
 })

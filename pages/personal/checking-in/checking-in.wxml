@@ -26,13 +26,12 @@
 		<view class="close" bindtap="closeCaledar">关闭</view>
 		<calendar binddayClick="dayClick" data-index="{{index}}" binddateChange="dateChange" bindprevMonth="prev" bindnextMonth="next" days-color="{{daysColor}}" cell-size="22" weeks-type="cn" calendar-style="calendar" header-style="hd" board-style="board" />
 		<view class="time">
-			<view class="duty">
-				<image class="auto-img" src="/icon/working.png"></image>
-				<view class="on-time">{{t1}}</view>
+			<view class="duty lh" wx:if="{{tList.length == 0}}">
+				点击日期查看当天打卡情况
 			</view>
-			<view class="duty">
-				<image class="auto-img" src="/icon/worked.png"></image>
-				<view class="on-time">{{t2}}</view>
+			<view class="duty lh1" wx:else>
+				<view>{{today}}</view>
+				<view class="on-time" wx:for="{{tList}}">{{item.created_at}}<text>{{item.type == 1 ? '刷脸' : '手动'}}打卡{{item.status == 1 ? '上班' : '下班'}}</text></view>
 			</view>
 		</view>
 	</view>
