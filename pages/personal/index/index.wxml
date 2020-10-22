@@ -117,7 +117,7 @@
 			<image src="/icon/lookup.png" />
 			<text>成绩查询</text>
 		</view>
-			<view bindtap='openChecking'>
+		<view bindtap='openChecking' wx:if="{{(userInfo.worker == 2 || userInfo.worker == 1)&&userInfo.state==2}}">
 			<form bindsubmit="getFormID" report-submit="true">
 				<button formType="submit" class="formBtu"></button>
 			</form>

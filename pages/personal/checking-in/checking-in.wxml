@@ -1,14 +1,18 @@
 <!--pages/personal/checking-in/checking-in.wxml-->
 <view class="check-box">
 	<view class="check-card">
-		<view class="title" wx:if="{{working}}">当前为上班打卡模式</view>
-		<view class="title" wx:else>当前为下班打卡模式</view>
-		<view class="{{worked ? 'btn' : 'btn1'}}" bindtap="toAttendance" data-time="{{nowTime}}">
-			<view>打卡</view>
-			<view>{{nowTime}}</view>
+		<view class="title">当前为手动打卡模式</view>
+		<view class="btn-box"> 
+			<view class="btn" bindtap="toAttendanceUp" data-time="{{nowTime}}">
+				<view>上班打卡</view>
+				<view>{{nowTime}}</view>
+			</view>
+			<view class="btn" bindtap="toAttendanceBelow" data-time="{{nowTime}}">
+				<view>下班打卡</view>
+				<view>{{nowTime}}</view>
+			</view>
 		</view>
 		<view class="tip" bindtap="showCaledar">查看打卡详情</view>
-
 	</view>
 	<view class="check-rec">
 		<view class="title">打卡记录</view>
@@ -17,6 +21,7 @@
 			于
 			<text style="color: red">{{item.created_at}}</text>
 			{{item.status == 1 ? '上班':'下班'}}打卡
+			<text>{{item.text}}</text>
 		</view>
 	</view>
 </view>
@@ -31,7 +36,7 @@
 			</view>
 			<view class="duty lh1" wx:else>
 				<view>{{today}}</view>
-				<view class="on-time" wx:for="{{tList}}">{{item.created_at}}<text>{{item.type == 1 ? '刷脸' : '手动'}}打卡{{item.status == 1 ? '上班' : '下班'}}</text></view>
+				<view class="on-time" wx:for="{{tList}}">{{item.created_at}}<text>{{item.type == 1 ? '刷脸' : '手动'}}打卡{{item.status == 1 ? '上班' : '下班'}}</text><text>{{item.text}}</text></view>
 			</view>
 		</view>
 	</view>

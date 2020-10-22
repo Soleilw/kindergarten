@@ -17,8 +17,6 @@ Page({
     }], // 日历
     show: false,
     attendanceList: [],
-    working: true,
-    worked: true,
     on_time: '', // 上班时间
     off_time: '', // 下班时间
     tList: '',
@@ -84,7 +82,7 @@ Page({
 
   dayClick(e) {
     console.log(e);
-    var self= this
+    var self = this
     var time = e.detail.year + '-' + e.detail.month + '-' + e.detail.day + ' ' + '00:00:00';
     var endTime = e.detail.year + '-' + e.detail.month + '-' + e.detail.day + ' ' + '23:59:59';
     wx.request({
@@ -97,10 +95,10 @@ Page({
       },
       success: (res) => {
         console.log(res.data.data.length);
-          self.setData({
-            tList: res.data.data,
-            today: e.detail.year + '-' + e.detail.month + '-' + e.detail.day
-          })
+        self.setData({
+          tList: res.data.data,
+          today: e.detail.year + '-' + e.detail.month + '-' + e.detail.day
+        })
       }
     })
   },
@@ -132,46 +130,64 @@ Page({
   },
 
   // 手动打卡
-  toAttendance(e) {
+  toAttendanceUp(e) {
     var self = this;
-    if (self.data.worked) {
-      wx.request({
-        url: app.globalData.host + '/sign',
-        method: 'POST',
-        data: {
-          token: wx.getStorageSync('token'),
-          type: 2,
-          status: 1
-        },
-        success: (res) => {
-          if (res.statusCode == 200) {
-            console.log(res);
-            wx.showToast({
-              title: '打卡成功',
-              icon: 'none',
-              success() {
-                self.getAttendance();
-                self.setData({
-                  working: false,
-                  worked: false
-                })
-              }
-            })
-          } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none'
-            })
-          }
+    wx.request({
+      url: app.globalData.host + '/sign',
+      method: 'POST',
+      data: {
+        token: wx.getStorageSync('token'),
+        type: 2,
+        status: 1
+      },
+      success: (res) => {
+        if (res.statusCode == 200) {
+          console.log(res);
+          wx.showToast({
+            title: '上班打卡成功',
+            icon: 'none',
+            success() {
+              self.getAttendance();
+            }
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
         }
-      })
-    } else {
-      wx.showToast({
-        title: '未到下班打卡时间, 不能打卡',
-        icon: 'none'
-      })
-    }
+      }
+    })
+  },
 
+  toAttendanceBelow(e) {
+    var self = this;
+    wx.request({
+      url: app.globalData.host + '/sign',
+      method: 'POST',
+      data: {
+        token: wx.getStorageSync('token'),
+        type: 2,
+        status: 2
+      },
+      success: (res) => {
+        if (res.statusCode == 200) {
+          console.log(res);
+          wx.showToast({
+            title: '下班打卡成功',
+            icon: 'none',
+            success() {
+              self.getAttendance();
+            }
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
   },
 
   // 定时器
