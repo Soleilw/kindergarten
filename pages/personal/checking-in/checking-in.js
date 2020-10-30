@@ -94,9 +94,8 @@ Page({
         end: endTime
       },
       success: (res) => {
-        console.log(res.data.data.length);
         self.setData({
-          tList: res.data.data,
+          tList: res.data.data.data,
           today: e.detail.year + '-' + e.detail.month + '-' + e.detail.day
         })
       }
@@ -122,8 +121,10 @@ Page({
         token: wx.getStorageSync('token'),
       },
       success: (res) => {
+        console.log(res);
+        
         self.setData({
-          attendanceList: res.data.data,
+          attendanceList: res.data.data.data,
         })
       }
     })

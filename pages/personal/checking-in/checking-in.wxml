@@ -14,15 +14,19 @@
 		</view>
 		<view class="tip" bindtap="showCaledar">查看打卡详情</view>
 	</view>
-	<view class="check-rec">
+	<view class="check-rec"  wx:if="{{attendanceList.length > 0}}">
 		<view class="title">打卡记录</view>
 		<view class="item" wx:for="{{attendanceList}}">
 			<text style="color: #2a9f93">{{item.name}}</text>
 			于
-			<text style="color: red">{{item.created_at}}</text>
+			<text style="color: red">{{item.time}}</text>
 			{{item.status == 1 ? '上班':'下班'}}打卡
 			<text>{{item.text}}</text>
 		</view>
+	</view>
+	<view class="check-rec"  wx:else>
+		<view class="title">打卡记录</view>
+		<view style="text-align: center">暂无打卡记录</view>
 	</view>
 </view>
 
@@ -36,7 +40,7 @@
 			</view>
 			<view class="duty lh1" wx:else>
 				<view>{{today}}</view>
-				<view class="on-time" wx:for="{{tList}}">{{item.created_at}}<text>{{item.type == 1 ? '刷脸' : '手动'}}打卡{{item.status == 1 ? '上班' : '下班'}}</text><text>{{item.text}}</text></view>
+				<view class="on-time" wx:for="{{tList}}">{{item.time}}<text>{{item.type == 1 ? '刷脸' : '手动'}}打卡{{item.status == 1 ? '上班' : '下班'}}</text><text>{{item.text}}</text></view>
 			</view>
 		</view>
 	</view>
