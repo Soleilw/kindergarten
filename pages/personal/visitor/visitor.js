@@ -173,7 +173,9 @@ multiIndex: [0, 0],
     this.setData({
       school_id:this.data.schools[e.detail.value].id,
       select_school:e.detail.value,
-      details:this.data.details
+      details:this.data.details,
+      school: this.data.schools[e.detail.value].name,
+
       // u_info: this.u_info
     })
     this.getworkersList(school_id);
@@ -193,11 +195,14 @@ multiIndex: [0, 0],
   },
   bindWorkerChange:function(e){
     let that = this;
+    console.log(e);
+    
     this.data.details.worker_id = this.data.workers[e.detail.value].id
     this.setData({
       select_worker:e.detail.value,
       worker_id:this.data.workers[e.detail.value].id,
-      details:this.data.details
+      details:this.data.details,
+      worker: this.data.workers[e.detail.value].name,
     })
     // this.getworkersList(school_id);
   },
