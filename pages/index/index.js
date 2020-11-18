@@ -58,9 +58,9 @@ Page({
     }
   },
   onShow: function () {
-
+    this.getSchool();
     lock = true;
-    self.information = []
+    self.information = [];
     // this.getInformation();
   },
   //滚动监听

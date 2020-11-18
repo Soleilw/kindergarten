@@ -1,6 +1,6 @@
 <view class="children-list" wx:for="{{childrenList}}" wx:key="{{index}}">
   <view class="info">
-    <image class="portrait" data-value="{{item.student.id}}" bindtap='toChildren_Details' mode='aspectFill' src="{{item.student.cover?item.cover:'/icon/qb.png'}}"></image>
+    <image class="portrait" data-value="{{item.student.id}}" bindtap='toChildren_Details' mode='aspectFill' src="{{item.student.face_image?item.student.face_image:'/icon/qb.png'}}"></image>
     <view class="content" data-value="{{item.student.id}}" bindtap='toChildren_Details'>
       <view>
         <text>{{item.student.name}}</text>
