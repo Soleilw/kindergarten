@@ -84,10 +84,11 @@ multiIndex: [0, 0],
     // this.getSchoolsList();
   },
   onShow: function() {
-    this.setData({
-      // userInfo: info,
-      showFace :wx.getStorageSync('openFace')
-    })
+    if (wx.getStorageSync('openFace') == 'open') {
+      this.setData({
+          showFace: true
+      });
+  }
   },
   // 显示隐藏设置授权弹窗
   display: function () {

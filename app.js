@@ -2,13 +2,13 @@
 
 let num = 5;
 App({
-  onShow:function(){
+  onShow: function () {
     this.getConfig();
   },
-  onLaunch: function() {
+  onLaunch: function () {
     let that = this;
     that.getUserinfo();
-    
+
     // that.getConfig();
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
@@ -39,9 +39,9 @@ App({
         content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
       })
     };
-    
+
     // that.checkNotify();
-    setInterval(function() {
+    setInterval(function () {
       console.log('两个小时登录一次')
       // that.getopenID();
     }, 2 * 60 * 60 * 1000) //两个小时登录一次
@@ -70,42 +70,45 @@ App({
   //     }
   //   })
   // },
-  checkNotify:function(cb){
+  checkNotify: function (cb) {
     let app = this;
     console.log('CheckNotify');
     console.log(app.globalData.userInfo)
   },
-  getConfig:function(cb){
+  getConfig: function (cb) {
     let app = this;
     console.log('getXConfig');
     wx.request({
-      url: 'https://gong.fengniaotuangou.cn/api/user/config?school=kindergarten&version=1.0.6',
-      method:'GET',
-      success:function(res){
-        console.log(res.data.data);
-        
+      url: 'https://er.fengniaotuangou.cn/api/configs?version=1.0.7',
+      method: 'GET',
+      success: function (res) {
+        console.log('getConfig', res.data.data);
+
         let data = res.data.data;
-        if(data.key=='open'){
-          app.globalData.openFace = data.value==1?true:false;
-          wx.setStorage({
-            data: data.value==1?true:false,
-            key: 'openFace',
-            complete: (res) => {
-              
-            },
-            fail: (res) => {},
-            success: (res) => {
-              console.log('setStorageSuccess')
-            },
-          })
-          console.log("app.globalData.openFace"+app.globalData.openFace);
-        }else{
-          wx.setStorage({
-            data: false,
-            key: 'openFace',
-          })
-        }
-      },fail:function(){
+        wx.setStorageSync('openFace', data.config_value);
+
+        // if (data.key == 'open') {
+        //   app.globalData.openFace = data.value == 1 ? true : false;
+        //   wx.setStorage({
+        //     data: data.value == 1 ? true : false,
+        //     key: 'openFace',
+        //     complete: (res) => {
+
+        //     },
+        //     fail: (res) => {},
+        //     success: (res) => {
+        //       console.log('setStorageSuccess')
+        //     },
+        //   })
+        //   console.log("app.globalData.openFace" + app.globalData.openFace);
+        // } else {
+        //   wx.setStorage({
+        //     data: false,
+        //     key: 'openFace',
+        //   })
+        // }
+      },
+      fail: function () {
         console.log('request fail')
         wx.setStorage({
           data: false,
@@ -115,19 +118,19 @@ App({
     })
   },
   // 从后台获取普通用户信息(先判别有没有openID)
-  getUserinfo: function(cb) {
+  getUserinfo: function (cb) {
     let app = this;
     let token = wx.getStorageSync('token');
-    
-    if (token){
+
+    if (token) {
       wx.request({
-        url: app.globalData.host+'/user/info?token='+token,
-        method:'GET',
-        success:(res)=>{
-          if(res.statusCode==200){
+        url: app.globalData.host + '/user/info?token=' + token,
+        method: 'GET',
+        success: (res) => {
+          if (res.statusCode == 200) {
             app.globalData.userInfo = res.data.data;
           }
-          if(res.statusCode==403){
+          if (res.statusCode == 403) {
             wx.removeStorageSync('token')
           }
         }
@@ -151,14 +154,14 @@ App({
           if (res.data.result) {
             app.globalData.userInfo = res.data.result;
             let open_id = res.data.result.user_openid;
-            if(res.data.result.notify===0){
-              
+            if (res.data.result.notify === 0) {
+
               wx.showModal({
                 cancelColor: 'cancelColor',
-                title:'是否接收订阅消息？',
-                success(res){
-                  if(res.confirm){
-                    let link = '/pages/showh5/showh5?link=https://xiao.fengniaotuangou.cn&state=empty&school=all&user_id='+open_id
+                title: '是否接收订阅消息？',
+                success(res) {
+                  if (res.confirm) {
+                    let link = '/pages/showh5/showh5?link=https://xiao.fengniaotuangou.cn&state=empty&school=all&user_id=' + open_id
                     console.log(link)
                     wx.navigateTo({
                       url: link
@@ -272,7 +275,7 @@ App({
     });
   },
   // 获取教职工信息
-  getStaff: function(cb) {
+  getStaff: function (cb) {
     let app = this;
     console.log(app.globalData.opnID)
     wx.request({
@@ -281,7 +284,7 @@ App({
         user_openid: app.globalData.opnID
       },
       method: 'get',
-      success: function(res) {
+      success: function (res) {
         console.log('获取教职工信息返回')
         console.log(res)
         if (res.data.result) {
@@ -295,7 +298,7 @@ App({
     });
   },
   // 获取访客信息
-  getVisitor: function(cb) {
+  getVisitor: function (cb) {
     let app = this;
     wx.request({
       url: app.globalData.https + '/visitor/select_u_visitor',
@@ -303,7 +306,7 @@ App({
         user_openid: app.globalData.opnID
       },
       method: 'get',
-      success: function(res) {
+      success: function (res) {
         console.log('我的访客申请记录')
         console.log(res)
         if (res.data.data.length > 0) {
@@ -316,7 +319,7 @@ App({
       }
     });
   }, // 获取会员信息
-  getMemberTime: function(cb) {
+  getMemberTime: function (cb) {
     let app = this;
     wx.request({
       url: app.globalData.https + '/member/select_member',
@@ -324,7 +327,7 @@ App({
         user_openid: app.globalData.opnID
       },
       method: 'get',
-      success: function(res) {
+      success: function (res) {
         console.log('获取会员信息返回')
         console.log(res)
         if (res.data.result) {
@@ -340,7 +343,7 @@ App({
 
   // -------------------------------------------------------------------------数据扩展----------------------------------------------------------
   // 获取当前日期和时间
-  getTime: function() {
+  getTime: function () {
     let time = new Date();
     let year = time.getFullYear();
     let month = time.getMonth() + 1;
@@ -351,7 +354,7 @@ App({
     return (year + "-" + month + "-" + date + ' ' + hours + ":" + minutes + ":" + seconds); //例：2018-12-5 12：00：00
   },
   // 获取当前日期
-  getDate: function() {
+  getDate: function () {
     let time = new Date();
     let year = time.getFullYear();
     let month = time.getMonth() + 1;
@@ -359,7 +362,7 @@ App({
     return (year + "-" + month + "-" + date); //例：2018-12-5
   },
   // 转换日期格式
-  conversionDate: function(num) {
+  conversionDate: function (num) {
     let time = new Date(num * 1000);
     let month = time.getMonth() + 1;
     let date = time.getDate();
@@ -367,14 +370,14 @@ App({
     return (month < 10 ? "0" + month : month) + "-" + (date < 10 ? "0" + date : date);
   },
   // 转换时间格式
-  conversionTime: function(num) {
+  conversionTime: function (num) {
     let time = new Date(num * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
     let h = time.getHours();
     let m = time.getMinutes();
     return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m);
   },
   // 判断登录状态（就是判断有没有个人信息）
-  getLogintype: function(cb) {
+  getLogintype: function (cb) {
     let user_info = this.globalData.userInfo;
     if (!user_info) {
       wx.showToast({
@@ -394,7 +397,7 @@ App({
     wx.request({
       url: app.globalData.https + '/form/inser_FormID',
       method: 'post',
-      data:{
+      data: {
         user_openid: app.globalData.opnID,
         form_id: formId
       },
@@ -407,7 +410,7 @@ App({
       }
     });
   },
-  
+
   // -------------------------------------------------------------------------信息保存----------------------------------------------------------
   // 信息
   globalData: {
@@ -416,8 +419,8 @@ App({
     staffInfo: null, //教职工信息
     visitorInfo: null, //访客信息
     opnID: null, //用户openID
-    openFace:false,
-    token:null,
+    openFace: false,
+    token: null,
     school_id: null,
     https: 'https://huan.fengniaotuangou.cn', //线上接口地址
     // https: 'http://192.168.1.105:8082',//本地接口地址

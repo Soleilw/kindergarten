@@ -91,13 +91,14 @@ Page({
     this.setData({
       isteacher: false,
       mask_disable: false,
-      showFace: wx.getStorageSync('openFace')
     })
     this.getMyinfo();
     this.getSchoolsList();
-    this.setData({
-      showFace: wx.getStorageSync('openFace')
-    })
+    if (wx.getStorageSync('openFace') == 'open') {
+      this.setData({
+        showFace: true
+      });
+    }
   },
   getMyinfo: function () {
     console.log('getMyinfo');
