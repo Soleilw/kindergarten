@@ -79,7 +79,7 @@ App({
     let app = this;
     console.log('getXConfig');
     wx.request({
-      url: 'https://er.fengniaotuangou.cn/api/configs?version=1.0.7',
+      url: 'https://er.fengniaotuangou.cn/api/configs?version=1.0.8',
       method: 'GET',
       success: function (res) {
         console.log('getConfig', res.data.data);
