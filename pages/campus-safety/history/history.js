@@ -5,12 +5,14 @@ Page({
     data: {
         recordsList: [],
         school_id: '',
-        number: ''
+        number: '',
+        face_id: ''
     },
     onLoad: function (options) {
         this.setData({
             school_id: options.school_id,
-            number: options.number
+            number: options.number,
+            face_id: options.face_id
         })
         this.getRecords();
 
@@ -26,8 +28,7 @@ Page({
                 limit: 100,
                 school_id: that.data.school_id,
                 number: that.data.number,
-                // school_id: 45,
-                // number: 2019024
+                face_id: that.data.face_id
             },
             method: 'get',
             success: function (res) {

@@ -637,7 +637,8 @@ Page({
         // id: 3949,
         student_id: that.childrenlist[that.currentIndex].id,
         school_id: that.childrenlist[that.currentIndex].school_id,
-        number: that.childrenlist[that.currentIndex].number
+        number: that.childrenlist[that.currentIndex].number,
+        face_id: that.childrenlist[that.currentIndex].face_id,
       },
       method: 'get',
       success: function (res) {
@@ -867,7 +868,7 @@ Page({
   toRecord: function (e) {
     let history_data = e.currentTarget.dataset.value;
     wx.navigateTo({
-      url: '../history/history?school_id=' + history_data.school_id + '&number=' + history_data.number
+      url: '../history/history?school_id=' + history_data.school_id + '&number=' + history_data.number + '&face_id=' + history_data.face_id
     })
   },
 
